@@ -1,6 +1,6 @@
 name: bubble_box
 description: 一个强大的气泡盒子，实现了基础的气泡、边框、虚线、渐变色、角度，自适应宽，方向、偏移等等功能
-version: 0.0.1
+version: 0.0.2
 homepage: https://github.com/18905059768/bubble_box
 
 environment:
