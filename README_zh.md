@@ -3,22 +3,22 @@
 [English](https://pub.dev/packages/bubble_box) [中文](https://github.com/chinabrant/popup_menu/blob/master/README_zh.md)
 # bubble_box
 
-A powerful bubble box, which implements basic bubble, border, dotted line, gradient color, angle, adaptive width and height, bubble direction, offset, etc.
+一个强大的气泡盒子，实现了基础的气泡、边框、虚线、渐变色、角度，自适应宽，方向、偏移等等功能
 
-This project was writed with pure dart code，which means it's support both iOS and Android.
+该项目是用纯flutter代码编写的，这意味着它同时支持iOS和Android。
 
 ## Screenshot
 <img src="https://raw.githubusercontent.com/18905059768/bubble_box/master/01.jpg" width="300">
 
-# Basic Components
+# 基础的组件
 ```dart
 BubbleBox(
     maxWidth: MediaQuery.of(context).size.width * 0.8,
-    child: Text('I am a basic component application example'),
+    child: Text('我是一个基础的组件应用示例'),
 )
 ```
 
-# Customize the border color, width, and component background color
+# 自定义边框颜色、宽度，组件的背景色
 ```dart
 BubbleBox(
     maxWidth: MediaQuery.of(context).size.width * 0.8,
@@ -26,11 +26,11 @@ BubbleBox(
     position: BubblePosition(center: 0),
     direction: BubbleDirection.right,
     backgroundColor: Colors.green.withOpacity(0.8),
-    child: Text('I can customize the color and width of the border, the background color of the component, the position of the sharp corner of the bubble and the offset of the sharp corner'),
+    child: Text('我可以自定义边框颜色、宽度，组件的背景色，气泡的尖角位置及尖角的偏移'),
   )
 ```
 
-# Define the border as a dashed line and the border color gradient
+# 定义边框为虚线、边框颜色渐变
 ```dart
 BubbleBox(
     maxWidth: MediaQuery.of(context).size.width * 0.8,
@@ -57,6 +57,6 @@ BubbleBox(
     elevation: 5,
     shadowColor: Colors.redAccent,
     child: Text(
-        'However, I am not only unable to customize the borders and sharp corners of the bubbles. I can also define the border as a dashed line and a gradient of border color. \nI am adaptive to the content, there is no need to set the width and height. Of course, you can limit the maximum width and height of the component. \nMy content can also be faded. \nIn addition, you may need some shadows, and the shadows may also need some of their own colors.'),
+        '然而我不仅仅不可自定气泡的边框和尖角。我还可以定义边框为虚线、边框颜色渐变。\n我对内容是自适应的，不需要设置宽高，当然，你可以限制组件的最大宽高。\n我的内容也可以渐变色。\n此外，你可能需要一些阴影,阴影可能也需要一些自己的颜色。'),
   )
 ```

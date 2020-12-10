@@ -8,6 +8,7 @@ import 'util/path_util.dart';
 
 enum BubbleDirection { top, bottom, right, left, none }
 
+/// 气泡盒子定位参数
 class BubblePosition {
   /// 对齐顶部位置偏移，当[BubbleDirection.left]和[BubbleDirection.right]生效
   double top;
@@ -30,6 +31,7 @@ class BubblePosition {
 
 enum BubbleBoxBorderStyle { none, solid, dashed }
 
+/// 气泡盒子边框参数
 class BubbleBoxBorder {
   /// 设置线条颜色
   final Color color;
@@ -172,12 +174,12 @@ class BubbleBox extends StatelessWidget {
     // 气泡框裁剪
     current = Material(
       shape: BubbleShapeBorder(
-          radius: radius,
-          direction: direction,
-          arrowAngle: arrowAngle,
-          arrowHeight: arrowHeight,
-          position: position,
-          border: border
+        radius: radius,
+        direction: direction,
+        arrowAngle: arrowAngle,
+        arrowHeight: arrowHeight,
+        position: position,
+        border: border,
       ),
       clipBehavior: Clip.antiAlias,
       color: backgroundColor,
@@ -209,6 +211,7 @@ class BubbleBox extends StatelessWidget {
   }
 }
 
+/// 气泡边框渲染
 class BubbleShapeBorder extends ShapeBorder {
   final double radius;
   final BubbleDirection direction;
@@ -303,7 +306,7 @@ class BubbleShapeBorder extends ShapeBorder {
     path.arcTo(
         Rect.fromCircle(
           center:
-          Offset(leftMargin + radius, size.height - bottomMargin - radius),
+              Offset(leftMargin + radius, size.height - bottomMargin - radius),
           radius: radius,
         ),
         90.r,
@@ -378,9 +381,9 @@ class BubbleShapeBorder extends ShapeBorder {
   }
 }
 
+/// 快捷声明
 extension _RadianInt on int {
   double get r {
     return (pi * (this / 180));
   }
 }
-
