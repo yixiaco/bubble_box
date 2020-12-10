@@ -1,14 +1,7 @@
 # bubble_box
 
-一个强大的气泡盒子
+一个强大的气泡盒子，实现了基础的气泡、边框、虚线、渐变色、角度，自适应宽，方向、偏移等等功能
+This project was writed with pure dart code，which means it's support both iOS and Android.
 
-## Getting Started
-
-This project is a starting point for a Dart
-[package](https://flutter.dev/developing-packages/),
-a library module containing code that can be shared easily across
-multiple Flutter or Dart projects.
-
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+## Screenshot
+<img src="https://raw.githubusercontent.com/18905059768/bubble_box/master/01.jpg" width="300">
