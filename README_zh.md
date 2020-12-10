@@ -1,6 +1,6 @@
 [![pub package](https://img.shields.io/badge/pub-v0.0.3-blue.svg)](https://pub.dev/packages/bubble_box)
 
-[English](https://pub.dev/packages/bubble_box) [中文](https://github.com/chinabrant/popup_menu/blob/master/README_zh.md)
+[English](https://pub.dev/packages/bubble_box) [中文](https://github.com/18905059768/bubble_box/blob/master/README_zh.md)
 # bubble_box
 
 一个强大的气泡盒子，实现了基础的气泡、边框、虚线、渐变色、角度，自适应宽，方向、偏移等等功能
