@@ -186,7 +186,7 @@ class Demo extends StatelessWidget {
                 position: BubblePosition(top: 9),
                 backgroundColor: Color(0xff98E165),
                 margin: EdgeInsets.all(4),
-                arrowQuadraticBezierLength: 2,
+                arrowQuadraticBezierLength: 3,
                 child: Text(
                   '我们添加了新的钝角，使三角形不再那么的尖锐',
                 ),
