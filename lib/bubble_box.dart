@@ -88,6 +88,9 @@ class BubbleBox extends StatelessWidget {
   /// 气泡尖角角度
   final double arrowAngle;
 
+  /// 气泡尖角钝角长度
+  final double arrowQuadraticBezierLength;
+
   /// 如果外层是一个不确定宽度的父组件，则设置基于[LimitedBox]最大宽度大小
   final double maxWidth;
 
@@ -137,6 +140,7 @@ class BubbleBox extends StatelessWidget {
     this.gradient,
     this.blendMode = BlendMode.dstATop,
     this.margin,
+    this.arrowQuadraticBezierLength,
     Key key,
   }) : super(key: key);
 
@@ -157,6 +161,11 @@ class BubbleBox extends StatelessWidget {
     if (border != null && border.style != BubbleBoxBorderStyle.none) {
       _margin += EdgeInsets.all(border.width / 2);
     }
+    // 不能比尖角高度长
+    double _aqbl = arrowQuadraticBezierLength != null &&
+            arrowQuadraticBezierLength > arrowHeight
+        ? arrowHeight
+        : arrowQuadraticBezierLength;
     Widget current = Padding(
       padding: (padding ?? EdgeInsets.all(0)) + _margin,
       child: child,
@@ -180,6 +189,7 @@ class BubbleBox extends StatelessWidget {
         arrowHeight: arrowHeight,
         position: position,
         border: border,
+        arrowQuadraticBezierLength: _aqbl,
       ),
       clipBehavior: Clip.antiAlias,
       color: backgroundColor,
@@ -217,6 +227,9 @@ class BubbleShapeBorder extends ShapeBorder {
   final BubbleDirection direction;
   final double arrowHeight;
   final double arrowAngle;
+
+  /// 气泡尖角钝角长度
+  final double arrowQuadraticBezierLength;
   final BubblePosition position;
   final BubbleBoxBorder border;
 
@@ -227,6 +240,7 @@ class BubbleShapeBorder extends ShapeBorder {
     this.arrowHeight,
     this.position,
     this.border,
+    this.arrowQuadraticBezierLength,
   });
 
   @override
@@ -268,7 +282,13 @@ class BubbleShapeBorder extends ShapeBorder {
     if (direction == BubbleDirection.top) {
       double p = _getTopBottomPosition(size);
       path.lineTo(p - arrowAngle, topMargin);
-      path.lineTo(p, 0);
+      if (arrowQuadraticBezierLength != null) {
+        var x = arrowAngle * arrowQuadraticBezierLength / ah;
+        path.lineTo(p - x, arrowQuadraticBezierLength);
+        path.quadraticBezierTo(p, 0, p + x, arrowQuadraticBezierLength);
+      } else {
+        path.lineTo(p, 0);
+      }
       path.lineTo(p + arrowAngle, topMargin);
     }
     path.lineTo(size.width - rightMargin - radius, topMargin);
@@ -283,7 +303,14 @@ class BubbleShapeBorder extends ShapeBorder {
     if (direction == BubbleDirection.right) {
       double p = _getLeftRightPosition(size);
       path.lineTo(size.width - rightMargin, p - arrowAngle);
-      path.lineTo(size.width, p);
+      if (arrowQuadraticBezierLength != null) {
+        var x = ah * arrowQuadraticBezierLength / arrowAngle;
+        path.lineTo(size.width - arrowQuadraticBezierLength, p - x);
+        path.quadraticBezierTo(
+            size.width, p, size.width - arrowQuadraticBezierLength, p + x);
+      } else {
+        path.lineTo(size.width, p);
+      }
       path.lineTo(size.width - rightMargin, p + arrowAngle);
     }
     path.lineTo(size.width - rightMargin, size.height - bottomMargin - radius);
@@ -298,8 +325,16 @@ class BubbleShapeBorder extends ShapeBorder {
         false);
     if (direction == BubbleDirection.bottom) {
       double p = _getTopBottomPosition(size);
-      path.lineTo(p + arrowAngle, size.height - bottomMargin);
-      path.lineTo(p, size.height);
+      path.lineTo(p + arrowAngle - rightMargin, size.height - bottomMargin);
+      if (arrowQuadraticBezierLength != null) {
+        var x = arrowAngle * arrowQuadraticBezierLength / ah;
+        path.lineTo(
+            p + x - rightMargin, size.height - arrowQuadraticBezierLength);
+        path.quadraticBezierTo(p - rightMargin, size.height,
+            p - rightMargin - x, size.height - arrowQuadraticBezierLength);
+      } else {
+        path.lineTo(p, size.height);
+      }
       path.lineTo(p - arrowAngle - rightMargin, size.height - bottomMargin);
     }
     path.lineTo(leftMargin + radius, size.height - bottomMargin);
@@ -315,7 +350,13 @@ class BubbleShapeBorder extends ShapeBorder {
     if (direction == BubbleDirection.left) {
       double p = _getLeftRightPosition(size);
       path.lineTo(leftMargin, p + arrowAngle);
-      path.lineTo(0, p);
+      if (arrowQuadraticBezierLength != null) {
+        var x = ah * arrowQuadraticBezierLength / arrowAngle;
+        path.lineTo(arrowQuadraticBezierLength, p + x);
+        path.quadraticBezierTo(0, p, arrowQuadraticBezierLength, p - x);
+      } else {
+        path.lineTo(0, p);
+      }
       path.lineTo(leftMargin, p - arrowAngle);
     }
     path.lineTo(leftMargin, radius);

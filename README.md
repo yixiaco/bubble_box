@@ -57,6 +57,45 @@ BubbleBox(
     elevation: 5,
     shadowColor: Colors.redAccent,
     child: Text(
-        'However, I am not only unable to customize the borders and sharp corners of the bubbles. I can also define the border as a dashed line and a gradient of border color. \nI am adaptive to the content, there is no need to set the width and height. Of course, you can limit the maximum width and height of the component. \nMy content can also be faded. \nIn addition, you may need some shadows, and the shadows may also need some of their own colors.'),
+        'However, I can not only customize the border and sharp corners of the bubble. I can also define the border as a dashed line and a gradient of border color. \nI am adaptive to the content, there is no need to set the width and height. Of course, you can limit the maximum width and height of the component. \nMy content can also be faded. \nIn addition, you may need some shadows, and the shadows may also need some of their own colors.'),
+  )
+```
+
+#  background color gradient
+```dart
+BubbleBox(
+    maxWidth: MediaQuery.of(context).size.width * 0.85,
+    elevation: 5,
+    gradient: LinearGradient(colors: [
+      Colors.red,
+      Colors.orange[700],
+      Colors.orange[500],
+    ]),
+    border: BubbleBoxBorder(
+      color: Colors.blue,
+      width: 3,
+      style: BubbleBoxBorderStyle.dashed,
+    ),
+    direction: BubbleDirection.none,
+    position: BubblePosition(top: 9),
+    margin: EdgeInsets.all(4),
+    child: Text(
+      'my background can actually fade',
+    ),
+  )
+```
+
+# obtuse angle
+```dart
+BubbleBox(
+    maxWidth: MediaQuery.of(context).size.width * 0.85,
+    direction: BubbleDirection.left,
+    position: BubblePosition(top: 9),
+    backgroundColor: Color(0xff98E165),
+    margin: EdgeInsets.all(4),
+    arrowQuadraticBezierLength: 2,
+    child: Text(
+      'We added new obtuse angles so that the triangles are no longer so sharp',
+    ),
   )
 ```

@@ -98,7 +98,7 @@ class Demo extends StatelessWidget {
                 elevation: 5,
                 shadowColor: Colors.redAccent,
                 child: Text(
-                    '然而我不仅仅不可自定气泡的边框和尖角。我还可以定义边框为虚线、边框颜色渐变。\n我对内容是自适应的，不需要设置宽高，当然，你可以限制组件的最大宽高。\n我的内容也可以渐变色。\n此外，你可能需要一些阴影,阴影可能也需要一些自己的颜色。'),
+                    '然而我不仅仅可以自定气泡的边框和尖角。我还可以定义边框为虚线、边框颜色渐变。\n我对内容是自适应的，不需要设置宽高，当然，你可以限制组件的最大宽高。\n我的内容也可以渐变色。\n此外，你可能需要一些阴影,阴影可能也需要一些自己的颜色。'),
               ),
             ],
           ),
@@ -173,6 +173,22 @@ class Demo extends StatelessWidget {
                 backgroundColor: Color(0xff98E165),
                 child: Text(
                   '然而对于微信，你可能更熟悉它',
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              BubbleBox(
+                maxWidth: MediaQuery.of(context).size.width * 0.85,
+                direction: BubbleDirection.left,
+                position: BubblePosition(top: 9),
+                backgroundColor: Color(0xff98E165),
+                margin: EdgeInsets.all(4),
+                arrowQuadraticBezierLength: 2,
+                child: Text(
+                  '我们添加了新的钝角，使三角形不再那么的尖锐',
                 ),
               ),
             ],
