@@ -8,7 +8,7 @@
 该项目是用纯flutter代码编写的，这意味着它同时支持iOS和Android。
 
 ## Screenshot
-<img src="https://raw.githubusercontent.com/18905059768/bubble_box/master/01.jpg" width="300">
+<img src="https://raw.githubusercontent.com/18905059768/bubble_box/master/01.png">
 
 # 基础的组件
 ```dart

@@ -8,7 +8,7 @@ A powerful bubble box, which implements basic bubble, border, dotted line, gradi
 This project was writed with pure dart code，which means it's support both iOS and Android.
 
 ## Screenshot
-<img src="https://raw.githubusercontent.com/18905059768/bubble_box/master/01.jpg" width="300">
+<img src="https://raw.githubusercontent.com/18905059768/bubble_box/master/01.png">
 
 # Basic Components
 ```dart
