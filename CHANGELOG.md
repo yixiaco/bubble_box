@@ -1,4 +1,4 @@
-## 0.0.4
+## 0.1.0
 
 * Added new obtuse angles to make the triangles less sharp
 
