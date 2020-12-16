@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bubble_box/bubble_box.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -94,7 +95,7 @@ class Demo extends StatelessWidget {
                   style: BubbleBoxBorderStyle.dashed,
                 ),
                 margin: EdgeInsets.all(4),
-                position: BubblePosition(top: 9),
+                position: BubblePosition(top: 12),
                 elevation: 5,
                 shadowColor: Colors.redAccent,
                 child: Text(
@@ -119,7 +120,7 @@ class Demo extends StatelessWidget {
                   style: BubbleBoxBorderStyle.dashed,
                 ),
                 direction: BubbleDirection.none,
-                position: BubblePosition(top: 9),
+                position: BubblePosition(top: 12),
                 margin: EdgeInsets.all(4),
                 child: Text(
                   '我的背景其实也能够渐变',
@@ -139,7 +140,7 @@ class Demo extends StatelessWidget {
                   Colors.orange[500],
                 ]),
                 direction: BubbleDirection.left,
-                position: BubblePosition(top: 9),
+                position: BubblePosition(top: 12),
                 margin: EdgeInsets.all(4),
                 child: Text(
                   '然而你更常用的可能是它',
@@ -153,7 +154,7 @@ class Demo extends StatelessWidget {
               BubbleBox(
                 maxWidth: MediaQuery.of(context).size.width * 0.85,
                 direction: BubbleDirection.left,
-                position: BubblePosition(top: 9),
+                position: BubblePosition(top: 12),
                 border: BubbleBoxBorder(color: Color(0xffEDEDED)),
                 margin: EdgeInsets.all(4),
                 child: Text(
@@ -168,7 +169,7 @@ class Demo extends StatelessWidget {
               BubbleBox(
                 maxWidth: MediaQuery.of(context).size.width * 0.85,
                 direction: BubbleDirection.right,
-                position: BubblePosition(top: 9),
+                position: BubblePosition(top: 12),
                 margin: EdgeInsets.all(4),
                 backgroundColor: Color(0xff98E165),
                 child: Text(
@@ -183,12 +184,28 @@ class Demo extends StatelessWidget {
               BubbleBox(
                 maxWidth: MediaQuery.of(context).size.width * 0.85,
                 direction: BubbleDirection.left,
-                position: BubblePosition(top: 9),
+                position: BubblePosition(top: 12),
                 backgroundColor: Color(0xff98E165),
                 margin: EdgeInsets.all(4),
                 arrowQuadraticBezierLength: 3,
                 child: Text(
                   '我们添加了新的钝角，使三角形不再那么的尖锐',
+                ),
+              ),
+            ],
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              BubbleBox(
+                maxWidth: MediaQuery.of(context).size.width * 0.85,
+                backgroundColor: Color(0xff98E165),
+                margin: EdgeInsets.all(4),
+                borderRadius: BorderRadius.only(
+                    topRight: Radius.elliptical(30, 15),
+                    bottomLeft: Radius.elliptical(30, 15)),
+                child: Text(
+                  '我们对边框radius进行了一些改造,让它更加自由',
                 ),
               ),
             ],

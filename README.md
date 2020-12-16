@@ -1,4 +1,4 @@
-[![pub package](https://img.shields.io/badge/pub-v0.1.0-blue.svg)](https://pub.dev/packages/bubble_box)
+[![pub package](https://img.shields.io/badge/pub-v0.2.0-blue.svg)](https://pub.dev/packages/bubble_box)
 
 [English](https://pub.dev/packages/bubble_box) [中文](https://github.com/18905059768/bubble_box/blob/master/README_zh.md)
 # bubble_box
@@ -96,6 +96,21 @@ BubbleBox(
     arrowQuadraticBezierLength: 2,
     child: Text(
       'We added new obtuse angles so that the triangles are no longer so sharp',
+    ),
+  )
+```
+
+# enhanced radius
+```dart
+BubbleBox(
+    maxWidth: MediaQuery.of(context).size.width * 0.85,
+    backgroundColor: Color(0xff98E165),
+    margin: EdgeInsets.all(4),
+    borderRadius: BorderRadius.only(
+        topRight: Radius.elliptical(30, 15),
+        bottomLeft: Radius.elliptical(30, 15)),
+    child: Text(
+      'We have made some modifications to the border radius to make it more free',
     ),
   )
 ```

@@ -4,6 +4,7 @@ import 'dart:math';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+
 import 'util/path_util.dart';
 
 enum BubbleDirection { top, bottom, right, left, none }
@@ -121,6 +122,9 @@ class BubbleBox extends StatelessWidget {
   /// 渐变合成模式,默认叠加于背景颜色之上，内容之下
   final BlendMode blendMode;
 
+  /// 边框圆角
+  final BorderRadius borderRadius;
+
   BubbleBox({
     @required this.child,
     this.backgroundColor,
@@ -141,6 +145,7 @@ class BubbleBox extends StatelessWidget {
     this.blendMode = BlendMode.dstATop,
     this.margin,
     this.arrowQuadraticBezierLength,
+    this.borderRadius,
     Key key,
   }) : super(key: key);
 
@@ -166,6 +171,7 @@ class BubbleBox extends StatelessWidget {
             arrowQuadraticBezierLength > arrowHeight
         ? arrowHeight
         : arrowQuadraticBezierLength;
+
     Widget current = Padding(
       padding: (padding ?? EdgeInsets.all(0)) + _margin,
       child: child,
@@ -183,7 +189,7 @@ class BubbleBox extends StatelessWidget {
     // 气泡框裁剪
     current = Material(
       shape: BubbleShapeBorder(
-        radius: radius,
+        radius: borderRadius ?? BorderRadius.circular(radius ?? 0),
         direction: direction,
         arrowAngle: arrowAngle,
         arrowHeight: arrowHeight,
@@ -223,7 +229,6 @@ class BubbleBox extends StatelessWidget {
 
 /// 气泡边框渲染
 class BubbleShapeBorder extends ShapeBorder {
-  final double radius;
   final BubbleDirection direction;
   final double arrowHeight;
   final double arrowAngle;
@@ -232,15 +237,16 @@ class BubbleShapeBorder extends ShapeBorder {
   final double arrowQuadraticBezierLength;
   final BubblePosition position;
   final BubbleBoxBorder border;
+  final BorderRadius radius;
 
   BubbleShapeBorder({
-    this.radius,
     this.direction,
     this.arrowAngle,
     this.arrowHeight,
     this.position,
     this.border,
     this.arrowQuadraticBezierLength,
+    this.radius,
   });
 
   @override
@@ -258,10 +264,7 @@ class BubbleShapeBorder extends ShapeBorder {
     //高度
     double ah = arrowHeight;
     //角度
-    double leftMargin = 0;
-    double rightMargin = 0;
-    double topMargin = 0;
-    double bottomMargin = 0;
+    double leftMargin = 0, rightMargin = 0, topMargin = 0, bottomMargin = 0;
     if (direction == BubbleDirection.left) {
       leftMargin += ah;
     } else if (direction == BubbleDirection.top) {
@@ -271,14 +274,20 @@ class BubbleShapeBorder extends ShapeBorder {
     } else if (direction == BubbleDirection.bottom) {
       bottomMargin += ah;
     }
-    path.arcTo(
-        Rect.fromCircle(
-          center: Offset(leftMargin + radius, topMargin + radius),
-          radius: radius,
-        ),
-        180.r,
-        90.r,
-        false);
+
+    /// 左上角半径
+    path.moveTo(
+        leftMargin,
+        topMargin +
+            _min(position?.top, radius.topLeft.y, BubbleDirection.left));
+    path.quadraticBezierTo(
+        leftMargin,
+        topMargin,
+        leftMargin +
+            _min(position?.left, radius.topLeft.x, BubbleDirection.top),
+        topMargin);
+
+    /// 上尖角
     if (direction == BubbleDirection.top) {
       double p = _getTopBottomPosition(size);
       path.lineTo(p - arrowAngle, topMargin);
@@ -291,15 +300,21 @@ class BubbleShapeBorder extends ShapeBorder {
       }
       path.lineTo(p + arrowAngle, topMargin);
     }
-    path.lineTo(size.width - rightMargin - radius, topMargin);
-    path.arcTo(
-        Rect.fromCircle(
-          center: Offset(size.width - radius - rightMargin, topMargin + radius),
-          radius: radius,
-        ),
-        -90.r,
-        90.r,
-        false);
+
+    /// 右上角半径
+    path.lineTo(
+        size.width -
+            rightMargin -
+            _min(position?.right, radius.topRight.x, BubbleDirection.top),
+        topMargin);
+    path.quadraticBezierTo(
+        size.width - rightMargin,
+        topMargin,
+        size.width - rightMargin,
+        topMargin +
+            _min(position?.top, radius.topRight.y, BubbleDirection.right));
+
+    /// 右尖角
     if (direction == BubbleDirection.right) {
       double p = _getLeftRightPosition(size);
       path.lineTo(size.width - rightMargin, p - arrowAngle);
@@ -313,16 +328,23 @@ class BubbleShapeBorder extends ShapeBorder {
       }
       path.lineTo(size.width - rightMargin, p + arrowAngle);
     }
-    path.lineTo(size.width - rightMargin, size.height - bottomMargin - radius);
-    path.arcTo(
-        Rect.fromCircle(
-          center: Offset(size.width - radius - rightMargin,
-              size.height - bottomMargin - radius),
-          radius: radius,
-        ),
-        0.r,
-        90.r,
-        false);
+
+    /// 右下角半径
+    path.lineTo(
+        size.width - rightMargin,
+        size.height -
+            bottomMargin -
+            _min(
+                position?.bottom, radius.bottomRight.y, BubbleDirection.right));
+    path.quadraticBezierTo(
+        size.width - rightMargin,
+        size.height - bottomMargin,
+        size.width -
+            rightMargin -
+            _min(position?.right, radius.bottomRight.x, BubbleDirection.bottom),
+        size.height - bottomMargin);
+
+    /// 下尖角
     if (direction == BubbleDirection.bottom) {
       double p = _getTopBottomPosition(size);
       path.lineTo(p + arrowAngle - rightMargin, size.height - bottomMargin);
@@ -337,16 +359,21 @@ class BubbleShapeBorder extends ShapeBorder {
       }
       path.lineTo(p - arrowAngle - rightMargin, size.height - bottomMargin);
     }
-    path.lineTo(leftMargin + radius, size.height - bottomMargin);
-    path.arcTo(
-        Rect.fromCircle(
-          center:
-              Offset(leftMargin + radius, size.height - bottomMargin - radius),
-          radius: radius,
-        ),
-        90.r,
-        90.r,
-        false);
+
+    /// 左下角半径
+    path.lineTo(
+        leftMargin +
+            _min(position?.left, radius.bottomLeft.x, BubbleDirection.bottom),
+        size.height - bottomMargin);
+    path.quadraticBezierTo(
+        leftMargin,
+        size.height - bottomMargin,
+        leftMargin,
+        size.height -
+            bottomMargin -
+            _min(position?.bottom, radius.bottomLeft.y, BubbleDirection.left));
+
+    /// 左尖角
     if (direction == BubbleDirection.left) {
       double p = _getLeftRightPosition(size);
       path.lineTo(leftMargin, p + arrowAngle);
@@ -359,15 +386,20 @@ class BubbleShapeBorder extends ShapeBorder {
       }
       path.lineTo(leftMargin, p - arrowAngle);
     }
-    path.lineTo(leftMargin, radius);
+
+    /// 收尾
+    path.lineTo(
+        leftMargin,
+        topMargin +
+            _min(position?.top, radius.topRight.y, BubbleDirection.left));
     path.close();
     return path;
   }
 
   @override
   void paint(Canvas canvas, Rect rect, {TextDirection textDirection}) {
+    Path path;
     if (border != null && border.style != BubbleBoxBorderStyle.none) {
-      Path path;
       if (border.style == BubbleBoxBorderStyle.dashed) {
         path = PathUtil.dashPath(
           getOuterPath(rect),
@@ -397,13 +429,13 @@ class BubbleShapeBorder extends ShapeBorder {
   double _getLeftRightPosition(Size size) {
     double p = size.height / 2;
     if (position?.top != null) {
-      p = radius + position.top + arrowAngle;
+      p = position.top + arrowAngle;
     } else if (position?.bottom != null) {
-      p = size.height - radius - arrowAngle - position.bottom;
+      p = size.height - arrowAngle - position.bottom;
     } else if (position?.center != null) {
       p = p + position.center;
     }
-    assert(p >= radius + arrowAngle && p <= size.height - radius - arrowAngle);
+    assert(p >= arrowAngle && p <= size.height - arrowAngle);
     return p;
   }
 
@@ -411,20 +443,48 @@ class BubbleShapeBorder extends ShapeBorder {
   double _getTopBottomPosition(Size size) {
     double p = size.width / 2;
     if (position?.left != null) {
-      p = radius + position.left + arrowAngle;
+      p = position.left + arrowAngle;
     } else if (position?.right != null) {
-      p = size.width - radius - position.right - arrowAngle;
+      p = size.width - position.right - arrowAngle;
     } else if (position?.center != null) {
       p = p + position.center;
     }
-    assert(p >= radius + arrowAngle && p <= size.width - radius - arrowAngle);
+    assert(p >= arrowAngle && p <= size.width - arrowAngle);
     return p;
   }
-}
 
-/// 快捷声明
-extension _RadianInt on int {
-  double get r {
-    return (pi * (this / 180));
+  double _min(double v1, double v2, BubbleDirection direction) {
+    if (this.direction != direction) {
+      return v2;
+    }
+    if (v1 == null) {
+      return v2;
+    }
+    if (v2 == null) {
+      return v1;
+    }
+    return min(v1, v2);
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is BubbleShapeBorder &&
+          direction == other.direction &&
+          arrowHeight == other.arrowHeight &&
+          arrowAngle == other.arrowAngle &&
+          arrowQuadraticBezierLength == other.arrowQuadraticBezierLength &&
+          position == other.position &&
+          border == other.border &&
+          radius == other.radius;
+
+  @override
+  int get hashCode =>
+      direction.hashCode ^
+      arrowHeight.hashCode ^
+      arrowAngle.hashCode ^
+      arrowQuadraticBezierLength.hashCode ^
+      position.hashCode ^
+      border.hashCode ^
+      radius.hashCode;
 }
