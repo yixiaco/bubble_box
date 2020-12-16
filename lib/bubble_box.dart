@@ -40,7 +40,7 @@ class BubbleBoxBorder {
   /// 设置线条宽度
   final double width;
 
-  /// 设置虚线、实现、无线条
+  /// 设置虚线、实线、无线条
   final BubbleBoxBorderStyle style;
 
   /// 如果是虚线，设置虚线线条的长度
