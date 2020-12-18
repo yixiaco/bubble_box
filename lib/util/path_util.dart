@@ -7,24 +7,21 @@ class PathUtil {
   /// [gap] 间隙长度
   /// [distance] 初始偏移
   static Path dashPath(final Path path, double length,
-      [double gap, double distance]) {
-    if (gap == null) {
-      gap = length;
-    }
+      [double? gap, double? distance = 0]) {
+    gap ??= length;
     PathMetrics pathMetrics = path.computeMetrics();
     Path dest = Path();
     for (var metric in pathMetrics) {
-      double _distance = distance ?? 0;
       bool draw = true;
-      while (_distance < metric.length) {
+      while (distance! < metric.length) {
         if (draw) {
           dest.addPath(
-            metric.extractPath(_distance, _distance + length),
+            metric.extractPath(distance, distance + length),
             Offset.zero,
           );
-          _distance += length;
+          distance += length;
         } else {
-          _distance += gap;
+          distance += gap;
         }
         draw = !draw;
       }

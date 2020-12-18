@@ -1,4 +1,4 @@
-[![pub package](https://img.shields.io/badge/pub-v0.2.0-blue.svg)](https://pub.dev/packages/bubble_box)
+[![pub package](https://img.shields.io/badge/pub-v0.3.0-blue.svg)](https://pub.dev/packages/bubble_box)
 
 [English](https://pub.dev/packages/bubble_box) [中文](https://github.com/18905059768/bubble_box/blob/master/README_zh.md)
 # bubble_box
@@ -6,6 +6,8 @@
 A powerful bubble box, which implements basic bubble, border, dotted line, gradient color, angle, adaptive width and height, bubble direction, offset, etc.
 
 This project was writed with pure dart code，which means it's support both iOS and Android.
+
+Note: you should use version 0.2.0 until Flutter SDK version 1.24 is released or unless you're on the master channel.
 
 ## Screenshot
 <img src="https://raw.githubusercontent.com/18905059768/bubble_box/master/01.png">
