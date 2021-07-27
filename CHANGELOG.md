@@ -1,3 +1,8 @@
+## 0.4.0
+
+* formal support null safety
+* Added a sleek angle
+
 ## 0.3.0-nullsafety.0
 
 * support null safety
