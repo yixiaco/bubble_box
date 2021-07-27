@@ -167,9 +167,7 @@ class BubbleBox extends StatelessWidget {
       _margin += EdgeInsets.all(border!.width / 2);
     }
     // 不能比尖角高度长
-    double _aqbl = arrowQuadraticBezierLength > arrowHeight
-        ? arrowHeight
-        : arrowQuadraticBezierLength;
+    double _aqbl = arrowQuadraticBezierLength > arrowHeight ? arrowHeight : arrowQuadraticBezierLength;
 
     Widget current = Padding(
       padding: (padding) + _margin,
@@ -237,6 +235,7 @@ class BubbleShapeBorder extends ShapeBorder {
   final BubblePosition? position;
   final BubbleBoxBorder? border;
   final BorderRadius radius;
+  final double smooth;
 
   BubbleShapeBorder({
     required this.direction,
@@ -246,6 +245,7 @@ class BubbleShapeBorder extends ShapeBorder {
     this.border,
     required this.arrowQuadraticBezierLength,
     required this.radius,
+    this.smooth = 1,
   });
 
   @override
@@ -277,132 +277,112 @@ class BubbleShapeBorder extends ShapeBorder {
     /// 左上角半径
     path.moveTo(
       leftMargin,
-      topMargin +
-          min(_min(position?.top, radius.topLeft.y, BubbleDirection.left),
-              size.height),
+      topMargin + min(_min(position?.top, radius.topLeft.y, BubbleDirection.left), size.height),
     );
     path.quadraticBezierTo(
       leftMargin,
       topMargin,
-      leftMargin +
-          min(_min(position?.left, radius.topLeft.x, BubbleDirection.top),
-              size.width),
+      leftMargin + min(_min(position?.left, radius.topLeft.x, BubbleDirection.top), size.width),
       topMargin,
     );
 
     /// 上尖角
     if (direction == BubbleDirection.top) {
       double p = _getTopBottomPosition(size);
-      path.lineTo(p - arrowAngle, topMargin);
+
+      path.lineTo(p - arrowAngle - smooth, topMargin);
+
       var x = arrowAngle * arrowQuadraticBezierLength / ah;
-      path.lineTo(p - x, arrowQuadraticBezierLength);
+
+      path.quadraticBezierTo(p - arrowAngle + smooth, topMargin, p - x, arrowQuadraticBezierLength);
+      // path.lineTo(p - x, arrowQuadraticBezierLength);
+
       path.quadraticBezierTo(p, 0, p + x, arrowQuadraticBezierLength);
-      path.lineTo(p + arrowAngle, topMargin);
+
+      path.quadraticBezierTo(p + arrowAngle - smooth, topMargin, p + arrowAngle + smooth, topMargin);
+      // path.lineTo(p + arrowAngle, topMargin);
     }
 
     /// 右上角半径
     path.lineTo(
-      size.width -
-          rightMargin -
-          min(_min(position?.right, radius.topRight.x, BubbleDirection.top),
-              size.width),
+      size.width - rightMargin - min(_min(position?.right, radius.topRight.x, BubbleDirection.top), size.width),
       topMargin,
     );
     path.quadraticBezierTo(
       size.width - rightMargin,
       topMargin,
       size.width - rightMargin,
-      topMargin +
-          min(_min(position?.top, radius.topRight.y, BubbleDirection.right),
-              size.height),
+      topMargin + min(_min(position?.top, radius.topRight.y, BubbleDirection.right), size.height),
     );
 
     /// 右尖角
     if (direction == BubbleDirection.right) {
       double p = _getLeftRightPosition(size);
-      path.lineTo(size.width - rightMargin, p - arrowAngle);
+
+      path.lineTo(size.width - rightMargin, p - arrowAngle - smooth);
+
       var x = ah * arrowQuadraticBezierLength / arrowAngle;
-      path.lineTo(size.width - arrowQuadraticBezierLength, p - x);
-      path.quadraticBezierTo(
-        size.width,
-        p,
-        size.width - arrowQuadraticBezierLength,
-        p + x,
-      );
-      path.lineTo(size.width - rightMargin, p + arrowAngle);
+
+      path.quadraticBezierTo(size.width - rightMargin, p - arrowAngle + smooth, size.width - arrowQuadraticBezierLength, p - x);
+      // path.lineTo(size.width - arrowQuadraticBezierLength, p - x);
+
+      path.quadraticBezierTo(size.width, p, size.width - arrowQuadraticBezierLength, p + x);
+
+      path.quadraticBezierTo(size.width - rightMargin, p + arrowAngle - smooth, size.width - rightMargin, p + arrowAngle + smooth);
+      // path.lineTo(size.width - rightMargin, p + arrowAngle);
     }
 
     /// 右下角半径
     path.lineTo(
       size.width - rightMargin,
-      size.height -
-          bottomMargin -
-          min(
-              _min(position?.bottom, radius.bottomRight.y,
-                  BubbleDirection.right),
-              size.height),
+      size.height - bottomMargin - min(_min(position?.bottom, radius.bottomRight.y, BubbleDirection.right), size.height),
     );
-    path.quadraticBezierTo(
-        size.width - rightMargin,
-        size.height - bottomMargin,
-        size.width -
-            rightMargin -
-            min(
-                _min(position?.right, radius.bottomRight.x,
-                    BubbleDirection.bottom),
-                size.width),
-        size.height - bottomMargin);
+    path.quadraticBezierTo(size.width - rightMargin, size.height - bottomMargin,
+        size.width - rightMargin - min(_min(position?.right, radius.bottomRight.x, BubbleDirection.bottom), size.width), size.height - bottomMargin);
 
     /// 下尖角
     if (direction == BubbleDirection.bottom) {
       double p = _getTopBottomPosition(size);
-      path.lineTo(p + arrowAngle - rightMargin, size.height - bottomMargin);
+
+      path.lineTo(p + arrowAngle - rightMargin + smooth, size.height - bottomMargin);
+
       var x = arrowAngle * arrowQuadraticBezierLength / ah;
-      path.lineTo(
-          p + x - rightMargin, size.height - arrowQuadraticBezierLength);
-      path.quadraticBezierTo(
-        p - rightMargin,
-        size.height,
-        p - rightMargin - x,
-        size.height - arrowQuadraticBezierLength,
-      );
-      path.lineTo(p - arrowAngle - rightMargin, size.height - bottomMargin);
+
+      // path.lineTo(p + x - rightMargin, size.height - arrowQuadraticBezierLength);
+      path.quadraticBezierTo(p + arrowAngle - rightMargin - smooth, size.height - bottomMargin, p + x - rightMargin, size.height - arrowQuadraticBezierLength);
+
+      path.quadraticBezierTo(p - rightMargin, size.height, p - rightMargin - x, size.height - arrowQuadraticBezierLength);
+
+      // path.lineTo(p - arrowAngle - rightMargin, size.height - bottomMargin);
+      path.quadraticBezierTo(p - arrowAngle - rightMargin + smooth, size.height - bottomMargin, p - arrowAngle - rightMargin - smooth, size.height - bottomMargin);
     }
 
     /// 左下角半径
-    path.lineTo(
-        leftMargin +
-            min(
-                _min(position?.left, radius.bottomLeft.x,
-                    BubbleDirection.bottom),
-                size.width),
-        size.height - bottomMargin);
+    path.lineTo(leftMargin + min(_min(position?.left, radius.bottomLeft.x, BubbleDirection.bottom), size.width), size.height - bottomMargin);
     path.quadraticBezierTo(
       leftMargin,
       size.height - bottomMargin,
       leftMargin,
-      size.height -
-          bottomMargin -
-          min(_min(position?.bottom, radius.bottomLeft.y, BubbleDirection.left),
-              size.height),
+      size.height - bottomMargin - min(_min(position?.bottom, radius.bottomLeft.y, BubbleDirection.left), size.height),
     );
 
     /// 左尖角
     if (direction == BubbleDirection.left) {
       double p = _getLeftRightPosition(size);
-      path.lineTo(leftMargin, p + arrowAngle);
+      path.lineTo(leftMargin, p + arrowAngle + smooth);
       var x = ah * arrowQuadraticBezierLength / arrowAngle;
-      path.lineTo(arrowQuadraticBezierLength, p + x);
+
+      path.quadraticBezierTo(leftMargin, p + arrowAngle - smooth, arrowQuadraticBezierLength, p + x);
+      // path.lineTo(arrowQuadraticBezierLength, p + x);
+
       path.quadraticBezierTo(0, p, arrowQuadraticBezierLength, p - x);
-      path.lineTo(leftMargin, p - arrowAngle);
+
+      // path.lineTo(leftMargin, p - arrowAngle);
+      path.quadraticBezierTo(leftMargin, p - arrowAngle + smooth, leftMargin, p - arrowAngle - smooth);
     }
 
     /// 收尾
-    path.lineTo(
-        leftMargin,
-        topMargin +
-            min(_min(position?.top, radius.topRight.y, BubbleDirection.left),
-                size.height));
+    path.lineTo(leftMargin, topMargin + min(_min(position?.top, radius.topRight.y, BubbleDirection.left), size.height));
     path.close();
     return path;
   }
