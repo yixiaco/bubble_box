@@ -1,16 +1,14 @@
-[![pub package](https://img.shields.io/badge/pub-v0.3.0-blue.svg)](https://pub.dev/packages/bubble_box)
+[![pub package](https://img.shields.io/badge/pub-v0.4.0-blue.svg)](https://pub.dev/packages/bubble_box)
 
-[English](https://pub.dev/packages/bubble_box) [中文](https://github.com/18905059768/bubble_box/blob/master/README_zh.md)
+[English](https://pub.dev/packages/bubble_box) [中文](https://github.com/yixiaco/bubble_box/blob/master/README_zh.md)
 # bubble_box
 
 一个强大的气泡盒子，实现了基础的气泡、边框、虚线、渐变色、角度，自适应宽，方向、偏移等等功能
 
-该项目是用纯flutter代码编写的，这意味着它同时支持iOS和Android。
-
-注意：在 Flutter SDK 版本 1.24 发布之前，或者除非您位于主通道上，否则应使用版本 0.2.0
+该项目是用纯flutter代码编写的，这意味着它同时支持iOS和Android以及Web、Windows、Linux、macOS等。
 
 ## Screenshot
-<img src="https://raw.githubusercontent.com/18905059768/bubble_box/master/01.png">
+<img src="https://raw.githubusercontent.com/yixiaco/bubble_box/master/01.png">
 
 # 基础的组件
 ```dart
