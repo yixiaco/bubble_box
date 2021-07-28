@@ -105,7 +105,8 @@ class Demo extends StatelessWidget {
               margin: EdgeInsets.all(4),
               elevation: 5,
               shadowColor: Colors.redAccent,
-              child: Text('然而我不仅仅可以自定气泡的边框和尖角。我还可以定义边框为虚线、边框颜色渐变。\n我对内容是自适应的，不需要设置宽高，当然，你可以限制组件的最大宽高。\n我的内容也可以渐变色。\n此外，你可能需要一些阴影,阴影可能也需要一些自己的颜色。'),
+              child: Text(
+                  '然而我不仅仅可以自定气泡的边框和尖角。我还可以定义边框为虚线、边框颜色渐变。\n我对内容是自适应的，不需要设置宽高，当然，你可以限制组件的最大宽高。\n我的内容也可以渐变色。\n此外，你可能需要一些阴影,阴影可能也需要一些自己的颜色。'),
             ),
           ],
         ),
@@ -173,6 +174,7 @@ class Demo extends StatelessWidget {
                 border: BubbleBoxBorder(color: Color(0xffEDEDED)),
                 direction: BubbleDirection.left,
                 position: const BubblePosition.start(12),
+                arrowQuadraticBezierLength: 1,
               ),
               margin: EdgeInsets.all(4),
               child: Text(
@@ -189,6 +191,7 @@ class Demo extends StatelessWidget {
               shape: BubbleShapeBorder(
                 direction: BubbleDirection.right,
                 position: const BubblePosition.start(12),
+                arrowQuadraticBezierLength: 1,
               ),
               margin: EdgeInsets.all(4),
               backgroundColor: Color(0xff98E165),
@@ -223,7 +226,9 @@ class Demo extends StatelessWidget {
               backgroundColor: Color(0xff98E165),
               margin: EdgeInsets.all(4),
               shape: BubbleShapeBorder(
-                radius: BorderRadius.only(topRight: Radius.elliptical(30, 15), bottomLeft: Radius.elliptical(30, 15)),
+                radius: BorderRadius.only(
+                    topRight: Radius.elliptical(30, 15),
+                    bottomLeft: Radius.elliptical(30, 15)),
               ),
               child: Text(
                 '我对边框radius进行了一些改造,让它更加自由',
