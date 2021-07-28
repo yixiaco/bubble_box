@@ -1,3 +1,8 @@
+## 0.5.0
+
+* Make directions more convenient
+* Standardize the shape to make subsequent expansion possible.
+
 ## 0.4.0
 
 * formal support null safety
