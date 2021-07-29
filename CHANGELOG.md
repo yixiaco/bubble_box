@@ -1,3 +1,8 @@
+## 0.5.1
+
+* prevent radius from crossing the boundary
+* removal of redundant parameters
+
 ## 0.5.0
 
 * Make directions more convenient
