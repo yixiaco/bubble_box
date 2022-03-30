@@ -1,4 +1,4 @@
-[![pub package](https://img.shields.io/badge/pub-v0.5.1-blue.svg)](https://pub.dev/packages/bubble_box)
+[![pub package](https://img.shields.io/badge/pub-v0.5.2-blue.svg)](https://pub.dev/packages/bubble_box)
 
 [English](https://pub.dev/packages/bubble_box) [中文](https://github.com/yixiaco/bubble_box/blob/master/README_zh.md)
 # bubble_box
@@ -9,7 +9,7 @@
 
 修改了很多API，请注意升级
 ## Screenshot
-<img src="https://raw.githubusercontent.com/yixiaco/bubble_box/master/01.png">
+<img src="https://raw.githubusercontent.com/yixiaco/bubble_box/master/01.png" style="width:450px" >
 
 # 基础的组件
 ```dart

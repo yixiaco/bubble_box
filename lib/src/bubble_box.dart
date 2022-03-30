@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'shape/bubble_shape_border.dart';
 
@@ -61,14 +59,15 @@ class BubbleBox extends StatelessWidget {
     this.margin,
     this.padding = const EdgeInsets.all(8),
     ShapeBorder? shape,
-  })  : this.shape = shape ?? BubbleShapeBorder(),
+  })  : shape = shape ?? BubbleShapeBorder(),
         super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Widget current = Padding(
+    Widget current = Container(
       padding: padding.add(shape?.dimensions ?? EdgeInsets.zero),
       child: child,
+      color: Colors.transparent, // 使ShaderMask渲染时能够填充满背景
     );
     // 渐变
     if (gradient != null) {

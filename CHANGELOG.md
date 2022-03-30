@@ -1,3 +1,9 @@
+## 0.5.2
+
+* Fixed the incomplete coverage of the gradient background color in the new version of flutter
+* Demo supports windows, web
+* Support flutter_lints
+
 ## 0.5.1
 
 * prevent radius from crossing the boundary
