@@ -1,6 +1,7 @@
-[![pub package](https://img.shields.io/badge/pub-v0.5.2-blue.svg)](https://pub.dev/packages/bubble_box)
+[![pub package](https://img.shields.io/badge/pub-v0.5.2-blue)](https://pub.dev/packages/bubble_box)
 
 [English](https://pub.dev/packages/bubble_box) [中文](https://github.com/yixiaco/bubble_box/blob/master/README_zh.md)
+
 # bubble_box
 
 A powerful bubble box, which implements basic bubble, border, dotted line, gradient color, angle, adaptive width and height, bubble direction, offset, etc.
