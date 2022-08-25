@@ -1,4 +1,4 @@
-[![pub package](https://img.shields.io/badge/pub-v0.5.2-blue)](https://pub.dev/packages/bubble_box)
+[![pub package](https://img.shields.io/badge/pub-v0.5.3-blue)](https://pub.dev/packages/bubble_box)
 
 [English](https://pub.dev/packages/bubble_box) [中文](https://github.com/yixiaco/bubble_box/blob/master/README_zh.md)
 # bubble_box
