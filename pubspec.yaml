@@ -1,6 +1,6 @@
 name: bubble_box
 description: A powerful bubble box, which implements basic bubble, border, dotted line, gradient color, angle, adaptive width and height, bubble direction, offset, etc.
-version: 0.5.2
+version: 0.5.3
 homepage: https://github.com/yixiaco/bubble_box
 
 environment:

@@ -1,3 +1,7 @@
+## 0.5.3
+
+* Fixed the wrong position of the delineated border when RECT is not at Zero
+
 ## 0.5.2
 
 * Fixed the incomplete coverage of the gradient background color in the new version of flutter

@@ -381,6 +381,7 @@ class BubbleShapeBorder extends ShapeBorder {
             math.min(
                 _min(position.start, radius.topRight.y, BubbleDirection.left),
                 size.height));
+    path = path.shift(rect.topLeft);
     path.close();
     return path;
   }
